@@ -10,7 +10,8 @@
     "astro": "astro",
     "format:check": "prettier --check \"**/*.{ts,tsx,md,mdx,astro}\"",
     "format": "prettier --write \"**/*.{ts,tsx,md,mdx,astro}\"",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "ci": "pnpm run typecheck && pnpm run format:check"
   },
   "dependencies": {
     "@astrojs/react": "^4.2.0",
