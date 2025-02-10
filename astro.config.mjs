@@ -12,7 +12,7 @@ export default defineConfig({
     starlight({
       title: "wkb",
       social: {
-        github: "https://github.com/withastro/starlight",
+        github: "https://github.com/matyson/wkb",
       },
       sidebar: [
         {
