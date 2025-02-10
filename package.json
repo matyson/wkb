@@ -9,7 +9,8 @@
     "preview": "astro preview",
     "astro": "astro",
     "format:check": "prettier --check \"**/*.{ts,tsx,md,mdx,astro}\"",
-    "format": "prettier --write \"**/*.{ts,tsx,md,mdx,astro}\""
+    "format": "prettier --write \"**/*.{ts,tsx,md,mdx,astro}\"",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@astrojs/react": "^4.2.0",
@@ -27,7 +28,8 @@
     "@ianvs/prettier-plugin-sort-imports": "^4.4.1",
     "prettier": "^3.5.0",
     "prettier-plugin-astro": "^0.14.1",
-    "prettier-plugin-tailwindcss": "^0.6.11"
+    "prettier-plugin-tailwindcss": "^0.6.11",
+    "typescript": "^5.7.3"
   },
   "packageManager": "pnpm@10.2.1",
   "engines": {
