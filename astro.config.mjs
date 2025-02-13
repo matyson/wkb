@@ -16,15 +16,28 @@ export default defineConfig({
       },
       sidebar: [
         {
-          label: "Guides",
-          items: [
-            // Each item here is one entry in the navigation menu.
-            { label: "Example Guide", slug: "guides/example" },
-          ],
+          label: "Fundamentals",
+          autogenerate: { directory: "fundamentals" },
         },
         {
-          label: "Reference",
-          autogenerate: { directory: "reference" },
+          label: "Tools & Libraries",
+          autogenerate: { directory: "tools" },
+        },
+        {
+          label: "Deployment",
+          autogenerate: { directory: "deploy" },
+        },
+        {
+          label: "Some Rationale",
+          autogenerate: { directory: "rationale" },
+        },
+        {
+          label: "A word on bleeding edge",
+          autogenerate: { directory: "bleeding-edge" },
+        },
+        {
+          label: "Tutorials",
+          autogenerate: { directory: "tutorials" },
         },
       ],
     }),
