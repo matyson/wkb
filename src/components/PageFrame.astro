@@ -1,0 +1,18 @@
+---
+import type { ComponentProps } from "astro/types";
+import Default from "@astrojs/starlight/components/PageFrame.astro";
+
+type Props = ComponentProps<typeof Default>;
+
+const props = Astro.props;
+---
+
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/katex.min.css"
+/>
+<Default {...props}>
+  <slot />
+  <slot name="header" slot="header" />
+  <slot name="sidebar" slot="sidebar" />
+</Default>
