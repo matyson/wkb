@@ -1,0 +1,173 @@
+---
+title: On Python for HTTP APIs
+description: A list of personal preferences and best practices when writing an HTTP API with Python.
+---
+
+Nowadays, writing an HTTP API is a common task for many developers. [FastAPI](https://fastapi.tiangolo.com/) is a modern, fast (high-performance), web framework for
+building _typesafe_ APIs with Python. It is easy to use and has great documentation.
+
+This guide intends to list our personal preferences and best practices when writing an HTTP API with FastAPI. It is not a comprehensive guide to FastAPI, but rather
+a collection of tips and tricks that we have found useful in our own projects.
+
+# Project setup
+
+Usually, we start a new project using [uv](https://docs.astral.sh/uv/) as the package installer and resolver:
+
+```bash
+uv init myapp
+```
+
+and add dependencies to it as needed. For example, to add FastAPI and a few other dependencies, we can run:
+
+```bash
+uv add fastapi --extra standard
+```
+
+## Environment variables
+
+Since FastAPI integrates with [Pydantic](https://docs.pydantic.dev/latest/) for data validation, we can use `pydantic-settings` to manage environment variables.
+This library allows us to define settings classes that can load environment variables from `.env` files or the system environment, and even docker secrets, automatically.
+
+A simple example of a settings class would be:
+
+```python
+# config.py
+from pydantic_settings import BaseSettings, SettingsConfigDict
+
+
+class Settings(BaseSettings):
+    model_config = SettingsConfigDict(env_file=".env")
+    secret_key: str = "supersecret"
+
+
+config = Settings()
+```
+
+:::note
+Usually, when using `.env` files you should not commit them to version control. You can use `.env.example` files to document the expected environment variables.
+:::
+
+# Typesafe Routes
+
+The main feature of FastAPI is its ability to generate typesafe routes. This means that we can define our routes using Python type hints along with Pydantic models,
+and FastAPI will automatically validate the request and response data for us. This is a powerful feature that can help us catch errors early in the development process.
+It also makes our code more readable and maintainable, and automatically generates OpenAPI documentation for our API.
+
+The simplest example of a route would be:
+
+```python
+# app.py
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+class Hero(BaseModel):
+    name: str
+    secret_name: str
+    age: int
+
+@app.post("/heroes")
+async def create_hero(hero: Hero) -> Hero:
+    return hero
+```
+
+# Data fetching
+
+It is common to fetch data from a database or an external API in our routes.
+
+## Database
+
+When fetching data from a database, we can use an ORM like [SQLAlchemy](https://docs.sqlalchemy.org/en/20/) or [SQLModel](https://sqlmodel.tiangolo.com/).
+
+These libraries integrate well with FastAPI and allow us to define our database models using Python classes and Pydantic models. This makes it easy to validate the data
+we receive from the database and return it in a typesafe way.
+
+Here is an example with SQLModel:
+
+```python
+# app.py
+from fastapi import FastAPI
+from sqlmodel import Field, Session, SQLModel, create_engine, select
+
+
+class Hero(SQLModel, table=True):
+    id: int | None = Field(default=None, primary_key=True)
+    name: str = Field(index=True)
+    secret_name: str
+    age: int | None = Field(default=None, index=True)
+
+
+sqlite_file_name = "database.db"
+sqlite_url = f"sqlite:///{sqlite_file_name}"
+
+connect_args = {"check_same_thread": False}
+engine = create_engine(sqlite_url, echo=True, connect_args=connect_args)
+
+app = FastAPI()
+
+@app.post("/heroes")
+def create_hero(hero: Hero) -> Hero:
+    with Session(engine) as session:
+        session.add(hero)
+        session.commit()
+        session.refresh(hero)
+        return hero
+```
+
+## External API
+
+When fetching data from an external API, we can use the [httpx](https://www.python-httpx.org/) library. This library is a modern HTTP client for Python that supports
+async requests and is compatible with FastAPI. It also has a built-in JSON decoder that can automatically decode JSON responses into Pydantic models.
+This makes it easy to validate the data we receive from the external API and return it in a typesafe way.
+
+Here is an example of how to use httpx to fetch data from an external API:
+
+```python
+# app.py
+import httpx
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+app = FastAPI()
+
+class Hero(BaseModel):
+    name: str
+    secret_name: str
+    age: int
+
+@app.post("/heroes")
+async def create_hero(hero: Hero) -> Hero:
+    async with httpx.AsyncClient() as client:
+        response = await client.post("https://api.example.com/heroes", data=hero.dict())
+        data = response.json()
+
+    return Hero(**data)
+```
+
+# Extra considerations
+
+For a production-ready API, we should consider a few extra things:
+
+## CORS
+
+If you want the API to accessible from other domains, you need to enable CORS (Cross-Origin Resource Sharing). FastAPI has built-in support for CORS using the
+`fastapi.middleware.cors` module.
+
+## Caching and Rate limiting
+
+When building an API, it is important to consider caching and rate limiting. Caching can help improve the performance of your API by reducing the number of requests
+to the database or external API and reduce sensitive server load. Rate limiting can help prevent abuse of your API by limiting the number of requests that can be made
+in a given time period. You can use [Redis](https://redis.io/) for caching and rate limiting.
+
+## Authentication and Authorization
+
+FastAPI has built-in support for authentication and authorization using OAuth2 and JWT tokens. You can use the `fastapi.security` module to implement authentication
+and authorization in your API, but if you want to integrate with an existing authentication system, you can use [Authlib](https://docs.authlib.org/en/latest/).
+
+## Deployment
+
+You should consider not deploy your API on "bare-metal" servers. Instead, you should use a containerization tool like [Docker](https://www.docker.com/) to package your
+API and its dependencies into a single container.
+
+This makes it easy to deploy your API on any platform that supports Docker, and also makes it easy to scale your API by running multiple containers.
