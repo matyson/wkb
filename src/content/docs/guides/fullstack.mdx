@@ -30,4 +30,26 @@ You can dive deep into this [talk](https://youtu.be/Cifkb-ZVps4?si=-Tbnuf7tk-JZV
 Modern React is also made for running in the backend, see [React for Two Computers](https://overreacted.io/react-for-two-computers/).
 :::
 
-##
+## Dependency management
+
+_Before_ we jump into Next.js, we need to talk about how do we get it into our project. Next.js is a JavaScript package, and like so, it needs to be installed. There are many different ways to add dependencies in a JavaScript project, but the most popular ones are npm, yarn and pnpm.
+
+A package manager is a tool that allows us to install, update and remove packages in our project. In a fullstack application, this choice is especially important, as we will be installing packages for both the backend and the frontend. This means that we will be installing a lot of packages, and we need to make sure that our package manager is fast and efficient.
+
+In our experience, of the three mentioned above, we have found that pnpm is the best package manager for its speed and developer experience. It is also the most popular package manager for monorepos, which is a common pattern in fullstack applications.
+
+:::note[Why pnpm?]
+pnpm is a fast, disk space efficient package manager. It uses hard links and symlinks to save disk space and speed up installations. If you want to learn more about pnpm, you can check out the [pnpm documentation](https://pnpm.io/).
+:::
+
+:::caution[Why not npm?]
+npm is the default package manager for Node.js, but it has some performance issues that can make it slow and inefficient. It also has a lot of legacy code that can cause problems in modern applications. If you want to learn more about npm, you can check out the [npm documentation](https://docs.npmjs.com/).
+:::
+
+:::tip[Why so many?]
+Here is a [great video](https://youtu.be/ZIKDJBrk56k) on the subject.
+:::
+
+### Honorable mentions
+
+Recently, Node.js is not the only way to run JavaScript on the server. There are many other runtimes that allow us to run JavaScript on the server, such as Deno and Bun. Particularly those two, are pushing forward the JavaScript ecosystem and are capabilities for better security, performance and developer experience. Both of them come with their own package manager, with standard libraries and a lot of other features that make them great alternatives to Node.js.
