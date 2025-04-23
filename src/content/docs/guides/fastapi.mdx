@@ -9,7 +9,7 @@ building _typesafe_ APIs with Python. It is easy to use and has great documentat
 This guide intends to list our personal preferences and best practices when writing an HTTP API with FastAPI. It is not a comprehensive guide to FastAPI, but rather
 a collection of tips and tricks that we have found useful in our own projects.
 
-# Project setup
+## Project setup
 
 Usually, we start a new project using [uv](https://docs.astral.sh/uv/) as the package installer and resolver:
 
@@ -47,7 +47,7 @@ config = Settings()
 Usually, when using `.env` files you should not commit them to version control. You can use `.env.example` files to document the expected environment variables.
 :::
 
-# Typesafe Routes
+## Typesafe Routes
 
 The main feature of FastAPI is its ability to generate typesafe routes. This means that we can define our routes using Python type hints along with Pydantic models,
 and FastAPI will automatically validate the request and response data for us. This is a powerful feature that can help us catch errors early in the development process.
@@ -72,11 +72,11 @@ async def create_hero(hero: Hero) -> Hero:
     return hero
 ```
 
-# Data fetching
+## Data fetching
 
 It is common to fetch data from a database or an external API in our routes.
 
-## Database
+### Database
 
 When fetching data from a database, we can use an ORM like [SQLAlchemy](https://docs.sqlalchemy.org/en/20/) or [SQLModel](https://sqlmodel.tiangolo.com/).
 
@@ -115,7 +115,7 @@ def create_hero(hero: Hero) -> Hero:
         return hero
 ```
 
-## External API
+### External API
 
 When fetching data from an external API, we can use the [httpx](https://www.python-httpx.org/) library. This library is a modern HTTP client for Python that supports
 async requests and is compatible with FastAPI. It also has a built-in JSON decoder that can automatically decode JSON responses into Pydantic models.
@@ -145,27 +145,27 @@ async def create_hero(hero: Hero) -> Hero:
     return Hero(**data)
 ```
 
-# Extra considerations
+## Extra considerations
 
 For a production-ready API, we should consider a few extra things:
 
-## CORS
+### CORS
 
 If you want the API to accessible from other domains, you need to enable CORS (Cross-Origin Resource Sharing). FastAPI has built-in support for CORS using the
 `fastapi.middleware.cors` module.
 
-## Caching and Rate limiting
+### Caching and Rate limiting
 
 When building an API, it is important to consider caching and rate limiting. Caching can help improve the performance of your API by reducing the number of requests
 to the database or external API and reduce sensitive server load. Rate limiting can help prevent abuse of your API by limiting the number of requests that can be made
 in a given time period. You can use [Redis](https://redis.io/) for caching and rate limiting.
 
-## Authentication and Authorization
+### Authentication and Authorization
 
 FastAPI has built-in support for authentication and authorization using OAuth2 and JWT tokens. You can use the `fastapi.security` module to implement authentication
 and authorization in your API, but if you want to integrate with an existing authentication system, you can use [Authlib](https://docs.authlib.org/en/latest/).
 
-## Deployment
+### Deployment
 
 You should consider not deploy your API on "bare-metal" servers. Instead, you should use a containerization tool like [Docker](https://www.docker.com/) to package your
 API and its dependencies into a single container.
