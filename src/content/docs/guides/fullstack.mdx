@@ -1,0 +1,33 @@
+---
+title: On Web Development
+description: A list of personal preferences and best practices when writing a web application.
+---
+
+The web is a powerful platform for building applications. It allows us to create rich, interactive experiences that can be accessed from anywhere in the world.
+However, building a web application can be a complex task, and there are many different technologies and frameworks to choose from, specially nowadays with the rise of
+so many JavaScript frameworks.
+
+This guide intends to list our personal preferences and best practices when writing a web application. It is not a comprehensive guide to web development, but rather
+a collection of tips and tricks that we have found useful in our own projects.
+
+## Backend and Frontend: two runtimes, one app
+
+When your web application is not only defined by the code running in the browser, but also by data and logic running on a server it can be defined as a "fullstack"
+application. There are many different ways to build a fullstack application, but the most convenient way is to use a single language and technology stack for both the
+backend and the frontend, as this allows us to communicate efficiently between the two runtimes and share code between them.
+
+Since the web runs JavaScript in the browser, someone (Ryan Dahl) had the brilliant idea of running JavaScript on the server too, and thus Node.js was born.
+This allowed us to build fullstack applications using a single language, JavaScript.
+
+Considering that React is the most popular frontend framework, and that Node.js is the most popular backend runtime, it is no surprise that the most popular fullstack
+framework is Next.js. It allows us to build fullstack applications using React and Node.js, and it has a great developer experience.
+
+:::note[All the ways HTML gets to your browser]
+You can dive deep into this [talk](https://youtu.be/Cifkb-ZVps4?si=-Tbnuf7tk-JZVkE1) on modern web applications architectures.
+:::
+
+:::tip[React Server Components]
+Modern React is also made for running in the backend, see [React for Two Computers](https://overreacted.io/react-for-two-computers/).
+:::
+
+##
