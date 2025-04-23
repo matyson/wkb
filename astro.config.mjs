@@ -25,28 +25,8 @@ export default defineConfig({
       },
       sidebar: [
         {
-          label: "Fundamentals",
-          autogenerate: { directory: "fundamentals" },
-        },
-        {
-          label: "Tools & Libraries",
-          autogenerate: { directory: "tools" },
-        },
-        {
-          label: "Deployment",
-          autogenerate: { directory: "deploy" },
-        },
-        {
-          label: "Some Rationale",
-          autogenerate: { directory: "rationale" },
-        },
-        {
-          label: "A word on bleeding edge",
-          autogenerate: { directory: "bleeding-edge" },
-        },
-        {
-          label: "Tutorials",
-          autogenerate: { directory: "tutorials" },
+          label: "Guides",
+          autogenerate: { directory: "guides" },
         },
       ],
     }),
