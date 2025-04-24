@@ -34,9 +34,9 @@ Modern React is also made for running in the backend, see [React for Two Compute
 
 _Before_ we jump into Next.js, we need to talk about how do we get it into our project. Next.js is a JavaScript package, and like so, it needs to be installed. There are many different ways to add dependencies in a JavaScript project, but the most popular ones are npm, yarn and pnpm.
 
-A package manager is a tool that allows us to install, update and remove packages in our project. In a fullstack application, this choice is especially important, as we will be installing packages for both the backend and the frontend. This means that we will be installing a lot of packages, and we need to make sure that our package manager is fast and efficient.
+A package manager is a tool that allows us to install, update and remove packages in our project. In a fullstack application, this choice is especially important, as we will be managing a lot of packages for both the backend and the frontend, and we need to make sure that our package manager is fast and efficient.
 
-In our experience, of the three mentioned above, we have found that pnpm is the best package manager for its speed and developer experience. It is also the most popular package manager for monorepos, which is a common pattern in fullstack applications.
+In our experience, of the three mentioned above, we found that pnpm is the best package manager for its speed and developer experience. It is also the most popular package manager for monorepos, which is a common pattern in fullstack applications.
 
 :::note[Why pnpm?]
 pnpm is a fast, disk space efficient package manager. It uses hard links and symlinks to save disk space and speed up installations. If you want to learn more about pnpm, you can check out the [pnpm documentation](https://pnpm.io/).
@@ -46,10 +46,51 @@ pnpm is a fast, disk space efficient package manager. It uses hard links and sym
 npm is the default package manager for Node.js, but it has some performance issues that can make it slow and inefficient. It also has a lot of legacy code that can cause problems in modern applications. If you want to learn more about npm, you can check out the [npm documentation](https://docs.npmjs.com/).
 :::
 
-:::tip[Why so many?]
+:::tip[Why so many options?]
 Here is a [great video](https://youtu.be/ZIKDJBrk56k) on the subject.
 :::
 
 ### Honorable mentions
 
 Recently, Node.js is not the only way to run JavaScript on the server. There are many other runtimes that allow us to run JavaScript on the server, such as Deno and Bun. Particularly those two, are pushing forward the JavaScript ecosystem and are capabilities for better security, performance and developer experience. Both of them come with their own package manager, with standard libraries and a lot of other features that make them great alternatives to Node.js.
+
+## The framework
+
+[Next.js](https://nextjs.org/) is a fullstack framework for building web applications using React and Node.js. It is a very popular framework for building fullstack applications with great developer experience, documentation and community support. It is also the first recommended framework for building React applications [by the React team](https://react.dev/learn/creating-a-react-app). It comes with a lot of features and tooling that make it easy to build modern web applications in React, such as routing, server-side rendering, data fetching and optimization, with features like hot reloading, TypeScript support and a powerful CLI.
+
+:::note[React]
+[React](https://react.dev/) is the most popular JavaScript library for building user interfaces on the web. It is a declarative, component-based library that allows us to build complex user interfaces using simple, reusable components.
+:::
+
+To start a new Next.js application, we can use the `create-next-app` command, which is a CLI tool that allows us to create a new Next.js application with a single command. It will create a new directory with all the necessary files and dependencies to get started with our application.
+
+```bash
+pnpm create next-app@latest my-next-app
+```
+
+This will create a new directory called `my-next-app` with all the necessary files and dependencies to get started with our application. It will also install all the dependencies using pnpm, so we can start developing our application right away.
+
+## More layers to the cake
+
+Next.js is a great framework for building fullstack applications with a lot of batteries included, but we usually need to pick some extra layers to our stack depending on the needs of our application. In our common use cases, we usually end up needing the following extra layers:
+
+- **tRPC**: [tRPC](https://trpc.io/) is a library for building _type-safe_ APIs using TypeScript. It is a great alternative to REST and GraphQL, as it allows us to build APIs that are easy to use and understand, with great developer experience and type safety.
+
+- **Tanstack Query**: [TanStack Query](https://tanstack.com/query/v4) is a library for managing server state in React applications. It is a great alternative to traditional state management libraries, as it allows us to manage server state in a simple and efficient way, with great developer experience and performance.
+
+- **Tailwind CSS**: [Tailwind CSS](https://tailwindcss.com/) is a utility-first CSS framework that allows us to build modern user interfaces using simple, reusable classes directly in our HTML.
+  It is a great alternative to traditional CSS frameworks, as it allows us to build responsive and modern user interfaces without writing a lot of custom CSS.
+
+- **shadcn/ui**: shadcn/ui is not exactly a installable library, but a collection of reusable components built using Tailwind CSS and Radix UI that you can directly copy and paste into your project or use the [CLI](https://ui.shadcn.com/docs/cli) to generate them. It is a great alternative to traditional UI libraries, as it allows us to build modern user interfaces using simple, reusable components that are easy to customize and extend.
+
+:::note[The cake is a lie]
+The cake is a lie is a phrase that originated from the video game Portal, and it refers to the idea that something that seems too good to be true probably is. In the context of web development, it refers to the idea that building a web application is not as easy as it seems, and that there are many challenges and complexities involved in the process.
+:::
+
+## Getting started
+
+A great starting point to create a fullstack application with the mentioned requirements is the [create-t3-app](https://create.t3.gg/) template, which offers a cli tool to create a new Next.js application that allows us to pick the extra layers we want to include in our application. It is a great starting point for building fullstack applications using Next.js, tRPC, TanStack Query and Tailwind CSS.
+
+```bash
+pnpm create t3-app@latest my-t3-app
+```
